@@ -7,7 +7,7 @@
         public int SubjectId { get; set; }
         public string Content { get; set; }
         public int Semester { get; set; }
-        
+
         public Assignment() { }
     }
 }
