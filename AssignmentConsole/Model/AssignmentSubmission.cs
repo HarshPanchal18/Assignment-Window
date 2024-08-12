@@ -19,5 +19,9 @@ namespace AssignmentConsole.Model {
             Content = content;
             IsSubmitted = true; // Default to true upon creation
         }
+
+        public override string ToString() {
+            return "AssignmentSubmission(" + Id + ", " + AssignmentId + ", " + StudentId + ", " + SubmissionDate + ", " + Content + ", " + IsSubmitted + ")";
+        }
     }
 }

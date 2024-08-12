@@ -7,9 +7,13 @@
 
         public Student() { }
 
-        public Student(int Id, string Name) {
-            this.Id = Id;
-            this.Name = Name;
+        public Student(int id, string name) {
+            Id = id;
+            Name = name;
+        }
+
+        public override string ToString() {
+            return "Student(" + Id + ", " + RollNo + ", " + Name + ", " + Semester + ", " + ")";
         }
 
     }

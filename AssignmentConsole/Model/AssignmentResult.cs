@@ -13,5 +13,9 @@
             Score = score;
             Feedback = feedback;
         }
+
+        public override string ToString() {
+            return "AssignmentResult(" + Id + ", " + SubmissionId + ", " + Score + ", " + Feedback + ")";
+        }
     }
 }

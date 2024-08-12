@@ -16,5 +16,17 @@ namespace AssignmentConsole.Model {
         public Teacher() {
             Subjects = new List<TeacherSubject>();
         }
+
+        public Teacher(int id, string name, string type, string department, List<TeacherSubject> subjects) {
+            Id = id;
+            Name = name;
+            Type = type;
+            Department = department;
+            Subjects = subjects;
+        }
+
+        public override string ToString() {
+            return "Teacher(" + Id + ", " + Name + ", " + Type + ", " + Department + ", " + "[" + string.Join(", ", Subjects) + "]" + ")";
+        }
     }
 }
