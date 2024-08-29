@@ -11,13 +11,13 @@ namespace AssignmentConsole.Model {
         public string Name { get; set; } // Teacher Name
         public string Type { get; set; } // Type of teacher (optional)
         public string Department { get; set; } // Teacher Department
-        public List<TeacherSubject> Subjects { get; set; } // List of subjects taught by the teacher
+        public List<Subject> Subjects { get; set; } // List of subjects taught by the teacher
 
         public Teacher() {
-            Subjects = new List<TeacherSubject>();
+            Subjects = new List<Subject>();
         }
 
-        public Teacher(int id, string name, string type, string department, List<TeacherSubject> subjects) {
+        public Teacher(int id, string name, string type, string department, List<Subject> subjects) {
             Id = id;
             Name = name;
             Type = type;

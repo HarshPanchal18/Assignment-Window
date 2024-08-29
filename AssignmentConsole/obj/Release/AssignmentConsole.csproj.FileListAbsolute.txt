@@ -1,0 +1,7 @@
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\bin\Release\AssignmentConsole.exe.config
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\bin\Release\AssignmentConsole.exe
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\bin\Release\AssignmentConsole.pdb
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\obj\Release\AssignmentConsole.csproj.AssemblyReference.cache
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\obj\Release\AssignmentConsole.csproj.CoreCompileInputs.cache
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\obj\Release\AssignmentConsole.exe
+C:\Users\HARSH\source\repos\AssignmentConsole\AssignmentConsole\obj\Release\AssignmentConsole.pdb

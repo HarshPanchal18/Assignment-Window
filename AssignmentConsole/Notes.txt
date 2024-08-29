@@ -1,0 +1,241 @@
+﻿Creating an assignment submission system where you can execute a C# script by providing its path as an argument involves a few steps. Here's a simple example to get you started:
+
+1. **Create a C# project**:
+   - Open Visual Studio.
+   - Go to `File` > `New` > `Project`.
+   - Select `Console App (.NET Core)` or `Console App (.NET Framework)`.
+   - Name your project and click `Create`.
+
+2. **Write the main program**:
+   - In the `Program.cs` file, write the following code to execute another C# script:
+
+```csharp
+using System;
+using System.Diagnostics;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Please provide the path to the C# script.");
+            return;
+        }
+
+        string scriptPath = args[0];
+
+        ProcessStartInfo startInfo = new ProcessStartInfo("dotnet", $"run --project {scriptPath}")
+        {
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using (Process process = new Process())
+        {
+            process.StartInfo = startInfo;
+            process.Start();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            Console.WriteLine("Output:");
+            Console.WriteLine(output);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                Console.WriteLine("Error:");
+                Console.WriteLine(error);
+            }
+        }
+    }
+}
+```
+
+3. **Run the main program**:
+   - Build your project.
+   - Open a command prompt and navigate to the directory of your compiled executable.
+   - Run the program with the path to the C# script as an argument, like this:
+     ```sh
+     dotnet run --project Path\To\Your\MainProject Path\To\Your\ScriptProject
+     ```
+
+This code uses the `Process` class to start a new process that runs the specified C# script. It captures the output and error streams and displays them in the console.
+
+Would you like more details on any specific part of this process?
+
+
+
+
+For executing a C# script by providing its path as an argument, you typically want to use the path to the `.csproj` file of the project you want to run. This is because the `dotnet run` command works with project files.
+
+Here's an example:
+
+1. **Assume you have a C# project** located at `C:\Projects\MyScriptProject\MyScriptProject.csproj`.
+
+2. **Your main program** that executes this script might look like this:
+
+```csharp
+using System;
+using System.Diagnostics;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Please provide the path to the C# project file (.csproj).");
+            return;
+        }
+
+        string projectPath = args[0];
+
+        ProcessStartInfo startInfo = new ProcessStartInfo("dotnet", $"run --project {projectPath}")
+        {
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using (Process process = new Process())
+        {
+            process.StartInfo = startInfo;
+            process.Start();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            Console.WriteLine("Output:");
+            Console.WriteLine(output);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                Console.WriteLine("Error:");
+                Console.WriteLine(error);
+            }
+        }
+    }
+}
+```
+
+3. **Run your main program** from the command line, providing the path to the `.csproj` file as an argument:
+
+```sh
+dotnet run --project C:\Path\To\Your\MainProject C:\Projects\MyScriptProject\MyScriptProject.csproj
+```
+
+This setup ensures that the `dotnet run` command knows which project to execute. If you have a single `.cs` file and want to run it directly, you might consider using a tool like `dotnet-script`¹².
+
+Would you like more details on using `dotnet-script` or any other specific part of this process?
+
+Source: Conversation with Copilot, 8/17/2024
+(1) dotnet-script/dotnet-script: Run C# scripts from the .NET CLI. - GitHub. https://github.com/dotnet-script/dotnet-script.
+(2) Essential .NET - C# Scripting | Microsoft Learn. https://learn.microsoft.com/en-us/archive/msdn-magazine/2016/january/essential-net-csharp-scripting.
+(3) How to Get Executable Path in C# | Delft Stack. https://www.delftstack.com/howto/csharp/csharp-get-executable-path/.
+(4) C# Path - working with file and directory path information in C# - ZetCode. https://zetcode.com/csharp/path/.
+(5) Execute a PowerShell Script in C# - Code Maze. https://code-maze.com/csharp-run-powershell-script/.
+(6) undefined. https://raw.githubusercontent.com/dotnet-script/dotnet-script/master/install/install.ps1.
+(7) undefined. https://raw.githubusercontent.com/dotnet-script/dotnet-script/master/install/install.sh.
+
+
+If your code is written inside a class with a `Main()` method, it should work as long as the project is set up correctly. Here are a few common issues that might cause it not to work:
+
+1. **Incorrect Path**: Ensure that the path you provide points to the correct `.csproj` file of the project containing the `Main()` method.
+
+2. **Build Errors**: If there are any build errors in the project, the `dotnet run` command will fail. Make sure the project builds successfully.
+
+3. **Dependencies**: Ensure all necessary dependencies are restored. You can do this by running `dotnet restore` in the project directory.
+
+4. **Configuration**: Ensure the project is configured correctly in terms of target framework and other settings.
+
+Here's a simple example to illustrate:
+
+### Example Project Structure
+```
+C:\Projects\MyScriptProject\
+    MyScriptProject.csproj
+    Program.cs
+```
+
+### Program.cs
+```csharp
+using System;
+
+namespace MyScriptProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Enter Radius: ");
+            double radius = Convert.ToDouble(Console.ReadLine());
+            double area = Math.PI * radius * radius;
+            Console.WriteLine("Area of circle: " + area);
+        }
+    }
+}
+```
+
+### Running the Main Program
+1. **Main Program**:
+   ```csharp
+   using System;
+   using System.Diagnostics;
+
+   class Program
+   {
+       static void Main(string[] args)
+       {
+           if (args.Length == 0)
+           {
+               Console.WriteLine("Please provide the path to the C# project file (.csproj).");
+               return;
+           }
+
+           string projectPath = args[0];
+
+           ProcessStartInfo startInfo = new ProcessStartInfo("dotnet", $"run --project {projectPath}")
+           {
+               RedirectStandardOutput = true,
+               RedirectStandardError = true,
+               UseShellExecute = false,
+               CreateNoWindow = true
+           };
+
+           using (Process process = new Process())
+           {
+               process.StartInfo = startInfo;
+               process.Start();
+
+               string output = process.StandardOutput.ReadToEnd();
+               string error = process.StandardError.ReadToEnd();
+
+               process.WaitForExit();
+
+               Console.WriteLine("Output:");
+               Console.WriteLine(output);
+
+               if (!string.IsNullOrEmpty(error))
+               {
+                   Console.WriteLine("Error:");
+                   Console.WriteLine(error);
+               }
+           }
+       }
+   }
+   ```
+
+2. **Run the Main Program**:
+   ```sh
+   dotnet run --project C:\Path\To\Your\MainProject C:\Projects\MyScriptProject\MyScriptProject.csproj
+   ```
+
+If you follow these steps and ensure everything is set up correctly, your code should execute without issues. If you encounter specific errors, feel free to share them, and I can help troubleshoot further!

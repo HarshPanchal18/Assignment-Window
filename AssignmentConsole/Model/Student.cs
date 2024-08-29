@@ -12,6 +12,13 @@
             Name = name;
         }
 
+        public Student(int id, string name, int rollNo, int semester) {
+            Id = id;
+            Name = name;
+            RollNo = rollNo;
+            Semester = semester;
+        }
+
         public override string ToString() {
             return "Student(" + Id + ", " + RollNo + ", " + Name + ", " + Semester + ", " + ")";
         }
