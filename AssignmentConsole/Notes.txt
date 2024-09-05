@@ -239,3 +239,136 @@ namespace MyScriptProject
    ```
 
 If you follow these steps and ensure everything is set up correctly, your code should execute without issues. If you encounter specific errors, feel free to share them, and I can help troubleshoot further!
+
+If your C program requires user input, you can still run it through a C# program by redirecting the standard input stream. Here's how you can modify the previous example to handle user input:
+
+### C Program (input.c)
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter a number: ");
+    scanf("%d", &number);
+    printf("You entered: %d\n", number);
+    return 0;
+}
+```
+
+### Compile the C Program
+```sh
+gcc input.c -o input.exe
+```
+
+### C# Program (RunCProgramWithInput.cs)
+```csharp
+using System;
+using System.Diagnostics;
+
+class Program {
+    static void Main() {
+        ProcessStartInfo startInfo = new ProcessStartInfo();
+        startInfo.FileName = "input.exe"; // Path to your C executable
+        startInfo.RedirectStandardInput = true;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.UseShellExecute = false;
+        startInfo.CreateNoWindow = true;
+
+        using (Process process = Process.Start(startInfo)) {
+            using (System.IO.StreamWriter writer = process.StandardInput) {
+                using (System.IO.StreamReader reader = process.StandardOutput) {
+                    // Provide input to the C program
+                    writer.WriteLine("42"); // Example input
+                    writer.Flush();
+
+                    // Read and display the output from the C program
+                    string result = reader.ReadToEnd();
+                    Console.WriteLine(result);
+                }
+            }
+        }
+    }
+}
+```
+
+### Run the C# Program
+1. Save the C# code in a file with a `.cs` extension (e.g., `RunCProgramWithInput.cs`).
+2. Compile the C# program using the C# compiler:
+   ```sh
+   csc RunCProgramWithInput.cs
+   ```
+3. Run the compiled C# program:
+   ```sh
+   RunCProgramWithInput.exe
+   ```
+
+In this example, the C# program writes the input (`42` in this case) to the C program's standard input stream and then reads the output from the C program's standard output stream.
+
+Would you like to try this out, or do you have any other questions?
+
+Source: Conversation with Copilot, 9/4/2024
+(1) github.com. https://github.com/Fe-Nik-S/experiments/tree/8455ae5dc355c9b495f07a9b8bc23f5eb1a859b5/c%2Fsimple%2Finput_output.c.
+
+To execute commands in a C# program, you can use the `System.Diagnostics.Process` class. This class allows you to start and manage system processes, including running command-line commands. Here's a basic example to get you started:
+
+### Example: Running a Command in C#
+
+```csharp
+using System;
+using System.Diagnostics;
+
+class Program {
+    static void Main() {
+        // Create a new process start info
+        ProcessStartInfo startInfo = new ProcessStartInfo();
+        startInfo.FileName = "cmd.exe"; // Command prompt
+        startInfo.Arguments = "/c echo Hello, World!"; // Command to execute
+        startInfo.RedirectStandardOutput = true; // Redirect output
+        startInfo.UseShellExecute = false; // Do not use shell execute
+        startInfo.CreateNoWindow = true; // Do not create a window
+
+        // Start the process
+        using (Process process = Process.Start(startInfo)) {
+            // Read the output
+            using (System.IO.StreamReader reader = process.StandardOutput) {
+                string result = reader.ReadToEnd();
+                Console.WriteLine(result);
+            }
+        }
+    }
+}
+```
+
+### Explanation:
+1. **ProcessStartInfo**: This class is used to specify the command to run and its parameters.
+2. **FileName**: Specifies the executable to run (e.g., `cmd.exe` for Command Prompt).
+3. **Arguments**: Specifies the command to execute (e.g., `/c echo Hello, World!`).
+4. **RedirectStandardOutput**: Redirects the standard output so you can capture it in your C# program.
+5. **UseShellExecute**: Set to `false` to allow redirection of input/output.
+6. **CreateNoWindow**: Set to `true` to prevent creating a new window for the command.
+
+### Running More Complex Commands
+If you need to run more complex commands or scripts, you can adjust the `Arguments` property accordingly. For example, to list files in a directory:
+
+```csharp
+startInfo.Arguments = "/c dir";
+```
+
+### Handling Input and Errors
+You can also redirect standard input and error streams if needed:
+
+```csharp
+startInfo.RedirectStandardInput = true;
+startInfo.RedirectStandardError = true;
+```
+
+This allows you to write input to the process and capture any error messages.
+
+Would you like more details on handling input or errors, or any other specific aspect of running commands in C#?
+
+Source: Conversation with Copilot, 9/4/2024
+(1) C# – Parsing commands and arguments in a console app. https://makolyte.com/csharp-parsing-commands-and-arguments-in-a-console-app/.
+(2) How to define commands in System.CommandLine - .NET. https://learn.microsoft.com/en-us/dotnet/standard/commandline/define-commands.
+(3) Executing Command Prompt Commands in C# - Web Dev Tutor. https://www.webdevtutor.net/blog/c-sharp-run-cmd-command.
+(4) Command Design Pattern Explained with C# Examples. https://dev.to/syncfusion/command-design-pattern-explained-with-c-examples-5b47.
+(5) c# - How to Start and Fire a Command - Stack Overflow. https://stackoverflow.com/questions/58542143/how-to-start-and-fire-a-command.
