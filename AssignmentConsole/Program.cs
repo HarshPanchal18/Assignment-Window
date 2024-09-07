@@ -22,16 +22,17 @@ namespace AssignmentConsole {
                     "using System;" +
                     "using System.Collections.Generic;" +
                     "using System.IO;" +
+
                     "public class Program {" +
                     "    public static void Main() {" +
-                    "        Console.WriteLine(\"Hello from dynamically compiled sourceCode!\");" +
-                    "        string v = Console.ReadLine();" +
-                    "        Console.WriteLine(v + \"GHI\"); " +
-                    "        greet();" +
+                    "       Console.WriteLine(Solution.add(5,4));" +
                     "    }" +
-                    "    public static void greet() {" +
-                    "       Console.WriteLine(\"Greeting from C# assembly.\");" +
-                    "    }" +
+                    "}" +
+
+                    "public class Solution {" +
+                    "   public static int add(int n1, int n2) {" +
+                    "       return n1 + n2;" +
+                    "   }" +
                     "}";
 
                 // Trimming whitespaces from the source code.
