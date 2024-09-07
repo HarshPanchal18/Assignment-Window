@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Reflection;
+using System.Linq;
 
 namespace AssignmentConsole {
 
@@ -13,53 +14,60 @@ namespace AssignmentConsole {
 
         static void Main(string[] args) {
 
-            string path = @"C:\Users\HARSH\Desktop\1.C";
+            char[] whitespace = new char[] { ' ', '\t', '\r', '\n' };
 
             try {
 
-                string code =
+                string sourceCode =
                     "using System;" +
                     "using System.Collections.Generic;" +
                     "using System.IO;" +
-
                     "public class Program {" +
-                    "    public static void Main()    {" +
-                    "        Console.WriteLine(\"Hello from dynamically compiled code!\");" +
+                    "    public static void Main() {" +
+                    "        Console.WriteLine(\"Hello from dynamically compiled sourceCode!\");" +
                     "        string v = Console.ReadLine();" +
-                    "        Console.WriteLine(v);" +
+                    "        Console.WriteLine(v + \"GHI\"); " +
                     "    }" +
                     "}";
 
+                // Trimming whitespaces from the source code.
+                string[] trimmedCode = sourceCode.Split(whitespace, StringSplitOptions.RemoveEmptyEntries);
+
+                sourceCode = string.Join(" ", trimmedCode);
+
+                // Setting up the compiler
                 using (var provider = new CSharpCodeProvider()) {
                     var parameters = new CompilerParameters {
                         GenerateExecutable = true,
                         GenerateInMemory = true,
                     };
-                    parameters.ReferencedAssemblies.Add("System.dll");
 
-                    CompilerResults results = provider.CompileAssemblyFromSource(parameters, code);
+                    parameters.ReferencedAssemblies.Add("System.dll"); // add a reference to the 'System.dll' assembly, necessary for the code to run.
 
-                    if (results.Errors.Count > 0) {
+                    // Compiling the source-code into an assembly
+                    CompilerResults results = provider.CompileAssemblyFromSource(parameters, sourceCode);
+
+                    if (results.Errors.Count > 0) { // Compilation error
                         foreach (CompilerError error in results.Errors) {
                             Console.WriteLine($"Error ({error.ErrorNumber}): {error.ErrorText}");
                         }
                     } else {
                         Assembly assembly = results.CompiledAssembly;
-                        Type programType = assembly.GetType("Program");
-                        MethodInfo mainMethod = programType.GetMethod("Main");
+                        Type programType = assembly.GetType("Program"); // ClassName of the source-code which contains Main()
+                        MethodInfo mainMethod = programType.GetMethod("Main"); // Provide entry point method name to start from
 
-                        mainMethod.Invoke(null, null);
+                        mainMethod.Invoke(null, null); // Invoke the Main method
                     }
                 }
 
-            } catch (FileNotFoundException ex) {
-                Console.WriteLine("Directory is invalid...");
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(path);
+                // Console.WriteLine(sourceCode);
+
             } catch (Win32Exception ex) {
                 Console.WriteLine("System error...");
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(path);
+            } catch (Exception ex) {
+                Console.WriteLine("Unhandled Exception occurred...");
+                Console.WriteLine(ex.Message);
             }
         }
 
