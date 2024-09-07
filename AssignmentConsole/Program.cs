@@ -27,6 +27,10 @@ namespace AssignmentConsole {
                     "        Console.WriteLine(\"Hello from dynamically compiled sourceCode!\");" +
                     "        string v = Console.ReadLine();" +
                     "        Console.WriteLine(v + \"GHI\"); " +
+                    "        greet();" +
+                    "    }" +
+                    "    public static void greet() {" +
+                    "       Console.WriteLine(\"Greeting from C# assembly.\");" +
                     "    }" +
                     "}";
 
