@@ -49,10 +49,12 @@
     <Compile Include="Model\Assignment.cs" />
     <Compile Include="Model\AssignmentResult.cs" />
     <Compile Include="Model\AssignmentSubmission.cs" />
+    <Compile Include="Model\Question.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\Subject.cs" />
     <Compile Include="Model\Teacher.cs" />
     <Compile Include="Model\TeacherSubject.cs" />
+    <Compile Include="Model\Testcase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
