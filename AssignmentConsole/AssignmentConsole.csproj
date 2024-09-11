@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataType.cs" />
     <Compile Include="Model\Assignment.cs" />
     <Compile Include="Model\AssignmentResult.cs" />
     <Compile Include="Model\AssignmentSubmission.cs" />
     <Compile Include="Model\Question.cs" />
+    <Compile Include="Model\Solution.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\Subject.cs" />
     <Compile Include="Model\Teacher.cs" />

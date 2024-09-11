@@ -1,21 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AssignmentConsole.Model {
-    internal class Testcase<T1, T2, T3> {
+    internal class Testcase<Toutput> {
 
-        // public Testcase(params  input) { }
+        public Testcase(Toutput output, params (DataType, string)[] inputs) {
+            Inputs = inputs;
+            Output = output;
+        }
 
         public int Id { get; set; }
 
         public int QuestionId { get; set; }
 
-        public string InputValues { get; set; } = null;
+        public (DataType, string)[] Inputs { get; set; }
+
+        public Toutput Output { get; set; }
 
         public string InputValueDatatype { get; set; } = null;
 
         public bool IsHidden { get; set; } = false;
-
-        public string OutputValue { get; set; } = null;
 
         public string OutputValueDatatype { get; set; } = null;
 
@@ -30,25 +35,6 @@ namespace AssignmentConsole.Model {
         public DateTime? DeletionTimestamp { get; set; }
 
         public virtual Question Question { get; set; } = null;
-
-        /*public void Demo() {
-            List<Testcase> testCases = new List<Testcase> {
-                new Testcase(1, 2, 3),
-                new Testcase(5, 7, 12),
-                new Testcase(-1, -1, -2),
-                new Testcase(0, 0, 0)
-            };
-
-            foreach (var testcase in testcases) {
-                int result = Solution.Add(testcase.Input1, testcase.Input2);
-
-                if (result == testcase.ExpectedOutput) {
-                    Console.WriteLine($"Test passed for inputs ({testcase.Input1}, {testcase.Input2})");
-                } else {
-                    Console.WriteLine($"Test failed for inputs ({testcase.Input1}, {testcase.Input2}). Expected {testcase.ExpectedOutput}, but got {result}");
-                }
-            }
-        }*/
 
     }
 
