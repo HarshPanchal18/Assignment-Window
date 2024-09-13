@@ -7,43 +7,35 @@ using System.Reflection;
 using System.Linq;
 using AssignmentConsole.Model;
 using System.Collections.Generic;
+using AssignmentConsole.Utils;
 
 namespace AssignmentConsole {
 
     internal class Program {
 
         static void Main(string[] args) {
-            RunCsProgram();
 
-            TestCaseDemo();
+            RunCsCode(
+                        Const.USING_IMPORTS +
 
-            Console.WriteLine();
+                        Const.MainMethod(
+                            "{" +
+                                "Console.WriteLine(Solution.add(7,8));" +
+                            "}") +
 
-            TestCaseDemo1();
+                        Const.Solution("{" +
+                                "public static int add(int n1, int n2) {" +
+                                    "return n1 + n2;" +
+                                "}" +
+                            "}")
 
+            );
         }
 
-        private static void RunCsProgram() {
+        private static Action<string> RunCsCode = (sourceCode) => {
             char[] whitespace = new char[] { ' ', '\t', '\r', '\n' };
 
             try {
-
-                string sourceCode =
-                    "using System;" +
-                    "using System.Collections.Generic;" +
-                    "using System.IO;" +
-
-                    "public class Program {" +
-                    "    public static void Main() {" +
-                    "       Console.WriteLine(Solution.add(5,4));" +
-                    "    }" +
-                    "}" +
-
-                    "public class Solution {" +
-                    "   public static int add(int n1, int n2) {" +
-                    "       return n1 + n2;" +
-                    "   }" +
-                    "}";
 
                 // Trimming whitespaces from the source code.
                 string[] trimmedCode = sourceCode.Split(whitespace, StringSplitOptions.RemoveEmptyEntries);
@@ -57,7 +49,8 @@ namespace AssignmentConsole {
                         GenerateInMemory = true,
                     };
 
-                    parameters.ReferencedAssemblies.Add("System.dll"); // add a reference to the 'System.dll' assembly, necessary for the code to run.
+                    // add a reference to the 'System.dll' assembly, necessary for the code to run.
+                    parameters.ReferencedAssemblies.Add("System.dll");
 
                     // Compiling the source-code into an assembly
                     CompilerResults results = provider.CompileAssemblyFromSource(parameters, sourceCode);
@@ -75,8 +68,6 @@ namespace AssignmentConsole {
                     }
                 }
 
-                // Console.WriteLine(sourceCode);
-
             } catch (Win32Exception ex) {
                 Console.WriteLine("System error...");
                 Console.WriteLine(ex.Message);
@@ -84,9 +75,9 @@ namespace AssignmentConsole {
                 Console.WriteLine("Unhandled Exception occurred...");
                 Console.WriteLine(ex.Message);
             }
-        }
+        };
 
-        public static void TestCaseDemo() {
+        public static void AdditionTestcase() {
             List<Testcase<int>> testCases = new List<Testcase<int>> {
                 new Testcase<int>(5, (DataType.INT, "2"), (DataType.INT, "3")),
                 new Testcase<int>(5, (DataType.INT, "7"), (DataType.INT, "12")),
@@ -110,7 +101,7 @@ namespace AssignmentConsole {
             }
         }
 
-        public static void TestCaseDemo1() {
+        public static void MinimumTestcase() {
             List<Testcase<int>> testCases = new List<Testcase<int>> {
                 new Testcase<int>(5, (DataType.INT, "2"), (DataType.INT, "3"), (DataType.INT, "2")),
                 new Testcase<int>(5, (DataType.INT, "7"), (DataType.INT, "12"), (DataType.INT, "-1")),

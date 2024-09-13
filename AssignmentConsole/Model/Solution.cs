@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AssignmentConsole.Model {
+﻿namespace AssignmentConsole.Model {
     internal class Solution {
         public static int Add(int n, int m) {
             return n + m;
