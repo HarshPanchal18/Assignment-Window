@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.CodeDom.Compiler;
-using Microsoft.CSharp;
-using System.Reflection;
 using System.Linq;
 using AssignmentConsole.Model;
 using System.Collections.Generic;
@@ -14,6 +9,7 @@ namespace AssignmentConsole {
     internal class Program {
 
         static void Main(string[] args) {
+
             Runner runner = new Runner();
 
             runner.RunCsCode(
@@ -29,8 +25,10 @@ namespace AssignmentConsole {
                                     "return n1 + n2;" +
                                 "}" +
                             "}")
-
             );
+
+            StringTestcase();
+
         }
 
         public static void AdditionTestcase() {
@@ -79,6 +77,27 @@ namespace AssignmentConsole {
                     Console.WriteLine($"Test failed for inputs ({string.Join(", ", testcase.Inputs.Select(i => i.Item2))}). " +
                         $"Expected {testcase.Output}, but got {result}");
 
+                }
+            }
+        }
+
+        public static void StringTestcase() {
+            List<Testcase<string>> testCases = new List<Testcase<string>> {
+                new Testcase<string>("gh", (DataType.STR, "qwsa")),
+                new Testcase<string>("", (DataType.STR, "")),
+                new Testcase<string>("ok", (DataType.STR, "okli")),
+                new Testcase<string>("q", (DataType.STR, "q"))
+            };
+
+            foreach (var testcase in testCases) {
+                var result = Solution.GetFirstTwoChars(testcase.Inputs[0].Item2);
+
+                if (result == testcase.Output) {
+                    Console.WriteLine($"Test passed for inputs ({string.Join(", ", testcase.Inputs.Select(i => i.Item2))}). " +
+                        $"Got {result}.");
+                } else {
+                    Console.WriteLine($"Test failed for inputs ({string.Join(", ", testcase.Inputs.Select(i => i.Item2))}). " +
+                        $"Expected {testcase.Output}, but got {result}.");
                 }
             }
         }
