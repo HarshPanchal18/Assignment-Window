@@ -29,6 +29,10 @@ namespace AssignmentConsole {
 
             StringTestcase();
 
+            Console.WriteLine();
+
+            EvenListTestcase();
+
         }
 
         public static void AdditionTestcase() {
@@ -98,6 +102,33 @@ namespace AssignmentConsole {
                 } else {
                     Console.WriteLine($"Test failed for inputs ({string.Join(", ", testcase.Inputs.Select(i => i.Item2))}). " +
                         $"Expected {testcase.Output}, but got {result}.");
+                }
+            }
+        }
+
+        public static void EvenListTestcase() {
+            List<Testcase<List<int>>> testCases = new List<Testcase<List<int>>> {
+                new Testcase<List<int>>(new List<int> {8,0,2}, (DataType.INT_LIST, "8,0,7,2")),
+                new Testcase<List<int>>(new List<int> {8,6,0}, (DataType.INT_LIST, "8,6,7,0")),
+                new Testcase<List<int>>(new List<int> {}, (DataType.INT_LIST, "9,7,1")),
+            };
+
+            foreach (var testcase in testCases) {
+                var list = testcase.Inputs[0].Item2.Split(',').Select(int.Parse).ToList();
+
+                var result = Solution.GetEvens(list);
+
+                // Use SequenceEqual to compare lists
+                if (result.SequenceEqual(testcase.Output)) {
+                    Console.WriteLine(
+                        $"Test passed for inputs ({testcase.Inputs[0].Item2}). " +
+                        $"Got [{string.Join(", ", result)}]."
+                    );
+                } else {
+                    Console.WriteLine(
+                        $"Test failed for inputs ({testcase.Inputs[0].Item2}). " +
+                        $"Expected {testcase.Output}, but got [{string.Join(", ", result)}]."
+                    );
                 }
             }
         }

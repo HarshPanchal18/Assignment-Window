@@ -1,4 +1,6 @@
-﻿namespace AssignmentConsole.Model {
+﻿using System.Collections.Generic;
+
+namespace AssignmentConsole.Model {
     internal class Solution {
         public static int Add(int n, int m) {
             return n + m;
@@ -12,6 +14,15 @@
             if (string.IsNullOrEmpty(s)) return string.Empty;
             else if (s.Length == 1) return s.Substring(0, 1);
             return s.Substring(0, 2);
+        }
+
+        public static List<int> GetEvens(List<int> nums) {
+            if (nums.Count == 0) return null;
+            var list = new List<int>();
+            foreach (int x in nums)
+                if (x % 2 == 0)
+                    list.Add(x);
+            return list;
         }
     }
 }
