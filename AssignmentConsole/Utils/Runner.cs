@@ -29,6 +29,7 @@ namespace AssignmentConsole.Utils {
 
                     // add a reference to the 'System.dll' assembly, necessary for the code to run.
                     parameters.ReferencedAssemblies.Add("System.dll");
+                    parameters.ReferencedAssemblies.Add("System.Core.dll");
 
                     // Compiling the source-code into an assembly
                     CompilerResults results = provider.CompileAssemblyFromSource(parameters, sourceCode);
