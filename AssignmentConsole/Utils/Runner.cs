@@ -43,7 +43,11 @@ namespace AssignmentConsole.Utils {
                         Type programType = assembly.GetType("Program"); // ClassName of the source-code which contains Main()
                         MethodInfo mainMethod = programType.GetMethod("Main"); // Provide entry point method name to start from
 
-                        mainMethod.Invoke(null, null); // Invoke the Main method
+                        // Invoke the Main method
+                        mainMethod.Invoke(
+                            null, // tells the reflection system that the method being invoked is static.
+                            null // indicate that no arguments are needed.
+                        );
                     }
                 }
 
