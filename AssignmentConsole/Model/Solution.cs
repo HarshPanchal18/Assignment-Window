@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AssignmentConsole.Model {
     internal class Solution {
@@ -16,13 +17,18 @@ namespace AssignmentConsole.Model {
             return s.Substring(0, 2);
         }
 
-        public static List<int> GetEvens(List<int> nums) {
+        public static List<int> GetEvens(ICollection<int> nums) {
             if (nums.Count == 0) return null;
             var list = new List<int>();
             foreach (int x in nums)
                 if (x % 2 == 0)
                     list.Add(x);
             return list;
+        }
+
+        public static string Minimum(string[] s) {
+            s = s.OrderBy(x => x.Length).ToArray();
+            return s[0];
         }
     }
 }
