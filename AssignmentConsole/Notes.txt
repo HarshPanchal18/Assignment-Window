@@ -372,3 +372,36 @@ Source: Conversation with Copilot, 9/4/2024
 (3) Executing Command Prompt Commands in C# - Web Dev Tutor. https://www.webdevtutor.net/blog/c-sharp-run-cmd-command.
 (4) Command Design Pattern Explained with C# Examples. https://dev.to/syncfusion/command-design-pattern-explained-with-c-examples-5b47.
 (5) c# - How to Start and Fire a Command - Stack Overflow. https://stackoverflow.com/questions/58542143/how-to-start-and-fire-a-command.
+
+The difference between `System.dll` and `System.Core.dll` lies in the types of functionality they provide and how they evolved with the .NET Framework. Here’s a breakdown of the key distinctions:
+
+### 1. **System.dll**:
+- **Purpose**: `System.dll` is one of the core assemblies that provides fundamental classes and types for .NET applications.
+- **Contents**: It contains basic types and functionality such as:
+  - Primitive types (`int`, `bool`, etc.)
+  - Basic collections like `ArrayList` and `Hashtable`
+  - `System.IO` (File and Stream handling)
+  - `System.Threading` (Threading, Tasks)
+  - `System.Net` (Basic networking classes)
+  - `System.Text` (Text encoding and regular expressions)
+  - Basic exception handling, reflection, and attributes.
+- **When to Use**: `System.dll` is essential for almost every .NET program because it provides foundational components that most programs depend on.
+
+### 2. **System.Core.dll**:
+- **Purpose**: Introduced with .NET Framework 3.5, `System.Core.dll` contains more advanced features, especially those related to LINQ and functional programming.
+- **Contents**:
+  - **LINQ (Language Integrated Query)**: Contains the `System.Linq` namespace and types like `Enumerable` and `Queryable`, which enable LINQ (working with collections, databases, XML, etc., in a declarative manner).
+  - **Lambda expressions**: Support for functional programming with lambda expressions (`Func<>`, `Action<>`, and `Expression<>`).
+  - **PLINQ (Parallel LINQ)**: Parallel processing of LINQ queries.
+  - **Other namespaces** like `System.IO.Compression`, `System.Numerics`, and `System.Dynamic`.
+- **When to Use**: You use `System.Core.dll` when you need to work with LINQ, lambda expressions, parallel processing, dynamic types, or certain advanced I/O and numeric features.
+
+### Practical Usage:
+- **`System.dll`** is automatically referenced in nearly all .NET projects since it includes the core system types.
+- **`System.Core.dll`** is needed when your code requires more advanced features, especially LINQ. This assembly must be explicitly referenced if you're compiling code dynamically (as in your case) or when targeting older .NET frameworks in some projects.
+
+### Summary:
+- **Use `System.dll`** for the core functionalities of .NET such as primitive types, collections, file I/O, networking, threading, and basic operations.
+- **Use `System.Core.dll`** when you need advanced features like LINQ, lambda expressions, dynamic types, or parallel processing.
+
+In modern .NET (like .NET Core or .NET 5/6/7), these distinctions are less visible because many of the assemblies have been unified into a simpler system, but in .NET Framework projects, these separate assemblies are still important.

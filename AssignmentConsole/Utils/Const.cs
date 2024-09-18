@@ -6,8 +6,7 @@ namespace AssignmentConsole.Utils {
             "using System;" +
             "using System.Collections.Generic;" +
             "using System.Text;" +
-            "using System.Linq;" +
-            "using System.Threading.Tasks;";
+            "using System.Linq;";
 
         public static Func<string, string> MainMethod = (body) => {
             return "public class Program {" +

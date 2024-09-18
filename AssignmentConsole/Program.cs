@@ -42,6 +42,14 @@ namespace AssignmentConsole {
             MinStringTestcase();
 
             Console.WriteLine();
+
+            runner.RunCppProgram("" +
+                "#include<stdio.h>\n" +
+                "int main(){" +
+                "   printf(\"Hello World\");" +
+                "   return 0;" +
+                "}");
+
         }
 
         public static void AdditionTestcase() {
