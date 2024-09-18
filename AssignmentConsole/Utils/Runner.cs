@@ -132,10 +132,14 @@ namespace AssignmentConsole.Utils {
 
         public void RunPythonProgram(string sourceCode) {
 
+            string pythonFile = "Program.py";
+            File.WriteAllText(pythonFile, sourceCode);
+
             // Run the Python interpreter
             Process pythonProcess = new Process();
             pythonProcess.StartInfo.FileName = "python";
-            pythonProcess.StartInfo.Arguments = $"-c \"{sourceCode}\"";
+            //pythonProcess.StartInfo.Arguments = $"-c \"{sourceCode}\"";
+            pythonProcess.StartInfo.Arguments = $"{pythonFile}";
             pythonProcess.StartInfo.RedirectStandardOutput = true;
             pythonProcess.StartInfo.RedirectStandardError = true;
             pythonProcess.StartInfo.UseShellExecute = false;
