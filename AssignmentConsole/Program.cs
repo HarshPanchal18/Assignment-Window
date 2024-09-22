@@ -43,21 +43,27 @@ namespace AssignmentConsole {
 
             Console.WriteLine();
 
+            runner.RunCprogram("" +
+                "#include<stdio.h>\n" +
+                "int main(){\n" +
+                "   printf(\"Hello World\");\n" +
+                "   return 0;\n" +
+                "}\n");
+
             runner.RunCppProgram("" +
                 "#include<stdio.h>\n" +
-                "int main(){" +
-                "   printf(\"Hello World\");" +
-                "   return 0;" +
-                "}");
+                "int main(){\n" +
+                "   printf(\"Hello World\");\n" +
+                "   return 0;\n" +
+                "}\n");
 
             runner.RunJavaProgram("" +
-                "import java.util.*;" +
-                "public class Program {" +
-                "   public static void main(String[] a) {" +
-                "      System.out.print(\"Hello World\");" +
-                "      Scanner scan = new Scanner(System.in);" +
-                "   }" +
-                "}");
+                "import java.util.*;\n" +
+                "public class Program {\n" +
+                "   public static void main(String[] a) {\n" +
+                "      System.out.print(\"Hello World\");\n" +
+                "   }\n" +
+                "}\n");
 
             runner.RunPythonProgram("print(\"Hello World!\")");
 

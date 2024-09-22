@@ -1,1 +1,7 @@
 .vs
+*.class
+*.java
+*.cpp
+*.c
+*.py
+/AssignmentConsole/bin/Debug/prog*

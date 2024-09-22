@@ -61,24 +61,53 @@ namespace AssignmentConsole.Utils {
             }
         };
 
-        public void runCprogram() {
+        public void RunCprogram(string sourceCode) {
 
-            ProcessStartInfo startInfo = new ProcessStartInfo() {
-                UseShellExecute = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                RedirectStandardInput = true
-            };
+            string sourceFile = "program.c";
+            File.WriteAllText(sourceFile, sourceCode); // Write source code to a file
 
-            Process ps = Process.Start(startInfo);
+            // Compile C++ code
+            Process compileProcess = new Process();
+            compileProcess.StartInfo.FileName = "g++"; // You need to have g++ or any C++ compiler installed
+            compileProcess.StartInfo.Arguments = $"{sourceFile} -o program.exe"; // Compile to executable
+            compileProcess.StartInfo.RedirectStandardOutput = true;
+            compileProcess.StartInfo.RedirectStandardError = true;
+            compileProcess.StartInfo.UseShellExecute = false;
+            compileProcess.StartInfo.CreateNoWindow = true;
+            compileProcess.Start();
 
-            string output = ps.StandardOutput.ReadToEnd();
-            Console.WriteLine(output);
+            string compileOutput = compileProcess.StandardOutput.ReadToEnd();
+            string compileError = compileProcess.StandardError.ReadToEnd();
+            compileProcess.WaitForExit();
 
-            string error = ps.StandardError.ReadToEnd();
-            Console.WriteLine(error);
+            // Check for compilation errors
+            if (!string.IsNullOrEmpty(compileError)) {
+                Console.WriteLine("Compilation errors:");
+                Console.WriteLine(compileError);
+                return;
+            }
 
-            ps.WaitForExit();
+            // Run the compiled program
+            Process runProcess = new Process();
+            runProcess.StartInfo.FileName = "./program.exe"; // Execute the compiled binary
+            runProcess.StartInfo.RedirectStandardOutput = true;
+            runProcess.StartInfo.RedirectStandardError = true;
+            runProcess.StartInfo.UseShellExecute = false;
+            runProcess.StartInfo.CreateNoWindow = true;
+            runProcess.Start();
+
+            string runOutput = runProcess.StandardOutput.ReadToEnd();
+            string runtimeError = runProcess.StandardError.ReadToEnd();
+            runProcess.WaitForExit();
+
+            // Display the output or errors from running the program
+            if (!string.IsNullOrEmpty(runtimeError)) {
+                Console.WriteLine("Runtime errors:");
+                Console.WriteLine(runtimeError);
+            } else {
+                Console.WriteLine("Program output:");
+                Console.WriteLine(runOutput);
+            }
 
         }
 

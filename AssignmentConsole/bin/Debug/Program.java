@@ -1,1 +1,6 @@
-import java.util.*;public class Program {   public static void main(String[] a) {      System.out.print("Hello World");      Scanner scan = new Scanner(System.in);   }}
+import java.util.*;
+public class Program {
+   public static void main(String[] a) {
+      System.out.print("Hello World");
+   }
+}
